@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://xab2xuiug5lt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kphrk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lx8tc"]
+size = Vector3(5, 0.5, 5)
+
+[node name="World" type="Node3D"]
+
+[node name="box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_kphrk")
+skeleton = NodePath("../ground")
+
+[node name="ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lx8tc")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 4)
+current = true
