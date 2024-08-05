@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://xab2xuiug5lt"]
+[gd_scene load_steps=19 format=3 uid="uid://xab2xuiug5lt"]
 
+[ext_resource type="Script" path="res://scripts/view.gd" id="1_og04k"]
 [ext_resource type="Environment" uid="uid://cxcacj4dcrjo0" path="res://world-environment.tres" id="1_uitkk"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_2q12q"]
 [ext_resource type="PackedScene" uid="uid://kod0awm1ha4o" path="res://Models/actors/models/gobot/model/gobot.glb" id="3_tpqqw"]
@@ -45,8 +46,13 @@ size = Vector3(2, 2, 2)
 
 [node name="World" type="Node3D"]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.774944, 0, 0.632029, 0, 1, 0, -0.632029, 0, 0.774944, 3.685, 1.669, 6.607)
+[node name="camera_pivot" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("1_og04k")
+target = NodePath("../player")
+min_rotation_x = -30
+
+[node name="Camera" type="Camera3D" parent="camera_pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.99863, 0.052336, 0, -0.052336, 0.99863, 0, 0, 0)
 current = true
 fov = 37.8
 
