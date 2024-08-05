@@ -1,7 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://xab2xuiug5lt"]
+[gd_scene load_steps=18 format=3 uid="uid://xab2xuiug5lt"]
 
 [ext_resource type="Environment" uid="uid://cxcacj4dcrjo0" path="res://world-environment.tres" id="1_uitkk"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_2q12q"]
+[ext_resource type="PackedScene" uid="uid://kod0awm1ha4o" path="res://Models/actors/models/gobot/model/gobot.glb" id="3_tpqqw"]
+[ext_resource type="PackedScene" uid="uid://d0euuex8krrwb" path="res://Models/assets/barrel.glb" id="3_ya2a0"]
+[ext_resource type="PackedScene" uid="uid://cqvijknrcbito" path="res://barrel_2.tscn" id="4_3ho7a"]
+[ext_resource type="PackedScene" uid="uid://ompi4ea8urxi" path="res://Models/assets/block-grass-overhang-large-tall.glb" id="5_a6y02"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12my7"]
 albedo_color = Color(0.254902, 0.0392157, 0, 1)
@@ -13,13 +17,9 @@ size = Vector2(10, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bomwe"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmmvs"]
-albedo_color = Color(0.752941, 0.913725, 1, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_frx62"]
-material = SubResource("StandardMaterial3D_dmmvs")
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xcp36"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4u2gu"]
+radius = 0.339835
+height = 1.19408
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bk48"]
 albedo_color = Color(0.733333, 0.819608, 1, 1)
@@ -39,6 +39,9 @@ size = Vector3(0.5, 3, 5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_1l3pt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g57c2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sxpvb"]
+size = Vector3(2, 2, 2)
 
 [node name="World" type="Node3D"]
 
@@ -66,12 +69,11 @@ shape = SubResource("ConcavePolygonShape3D_bomwe")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.80526, 0)
 script = ExtResource("2_2q12q")
 
-[node name="mesh_player" type="MeshInstance3D" parent="player"]
-mesh = SubResource("CapsuleMesh_frx62")
-skeleton = NodePath("../..")
+[node name="gobot" parent="player" instance=ExtResource("3_tpqqw")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
-shape = SubResource("CapsuleShape3D_xcp36")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.652422, 0, 0.594833, 0)
+shape = SubResource("CapsuleShape3D_4u2gu")
 
 [node name="wall2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68621, 0, 0)
@@ -105,3 +107,15 @@ mesh = SubResource("SphereMesh_ng608")
 
 [node name="collision" type="CollisionShape3D" parent="RigidBody3D2"]
 shape = SubResource("SphereShape3D_g57c2")
+
+[node name="barrel2" parent="." instance=ExtResource("3_ya2a0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32342, 0, -0.426231)
+
+[node name="barrel3" parent="." instance=ExtResource("4_3ho7a")]
+
+[node name="block" parent="." instance=ExtResource("5_a6y02")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 2.645)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="block"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_sxpvb")
